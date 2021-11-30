@@ -210,10 +210,16 @@ if __name__ == "__main__":
         
             RhRn=RhRn_s[i]
             RhRh=RhRh_s[i]
-        
-            DD_jk = (DD-2*DhDn-DhDh)/(np.sum(dw_wth_hole))/(np.sum(dw_wth_hole)+1)
-            DR_jk = (DR-DnRh - DhRn- DhRh)/(np.sum(rw_wth_hole))/(np.sum(dw_wth_hole))
-            RR_jk = (RR-2*RhRn-RhRh)/(np.sum(rw_wth_hole))/(np.sum(rw_wth_hole)+1)
+            alpha = jk_max/(2+np.sqrt(2)*(jk_max-1))
+            
+            norm_DD = (np.sum(dw_wth_hole))*(np.sum(dw_wth_hole)+1)+2*alpha* (np.sum(dw_hole)*np.sum(dw_wth_hole))
+            DD_jk = (DD-2*(1-alpha)*DhDn-DhDh)/norm_DD
+            
+            norm_DR = (np.sum(rw_wth_hole))*(np.sum(dw_wth_hole)) +alpha* (np.sum(dw_hole)*np.sum(rw_wth_hole)+np.sum(rw_hole)*np.sum(dw_wth_hole))
+            DR_jk = (DR-(1-alpha)*(DnRh + DhRn)-DhRh)/norm_DR
+            
+            norm_RR = (np.sum(rw_wth_hole))*(np.sum(rw_wth_hole)+1)+2*alpha* (np.sum(rw_hole)*np.sum(rw_wth_hole))
+            RR_jk = (RR-2*(1-alpha)*RhRn-RhRh)/norm_RR
             cf = ((DD_jk-2*DR_jk+RR_jk)/RR_jk)
         
             np.save(output+'_'+str(i),cf)
