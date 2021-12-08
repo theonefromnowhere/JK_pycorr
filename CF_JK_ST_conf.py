@@ -210,7 +210,7 @@ if __name__ == "__main__":
         
             RhRn=RhRn_s[i]
             RhRh=RhRh_s[i]
-            alpha = jk_max/(2+np.sqrt(2)*(jk_max-1))
+            alpha = jk_max/(2+np.sqrt(2)*(jk_max-1))/4
             
             norm_DD = (np.sum(dw_wth_hole))*(np.sum(dw_wth_hole)+1)+2*alpha* (np.sum(dw_hole)*np.sum(dw_wth_hole))
             DD_jk = (DD-2*(1-alpha)*DhDn-DhDh)/norm_DD
